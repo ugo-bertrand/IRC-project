@@ -20,7 +20,7 @@ database.once('connected', () => {
 });
 
 app.use((req,res,next) => {
-    res.setHeader("Access-Control-Allow-Origin", `http://localhost:8080`);
+    res.setHeader("Access-Control-Allow-Origin", `http://localhost:3000`);
     res.setHeader(
         "Access-Control-Allow-Methods",
         "GET, POST, PUT, DELETE"
@@ -41,7 +41,16 @@ app.use(express.json());
 app.use(cookieParser());
 
 var userRoutes = require("./routes/user.route.js");
+var channelRoutes = require("./routes/channel.route.js");
+var memberRoutes = require("./routes/member.route.js");
+var messageChannelRoutes = require("./routes/message_channel.route.js");
+var messagePrivateRoutes = require("./routes/message_private.route.js");
+
 app.use("/api/users", userRoutes);
+app.use("/api/channels", channelRoutes);
+app.use("/api/members", memberRoutes);
+app.use("/api/messagesChannel", messageChannelRoutes);
+app.use("/api/messagesPrivate", messagePrivateRoutes);
 
 
 app.listen(port, () =>{
