@@ -85,6 +85,9 @@ exports.updateUserById = async (req, result) => {
     try {
         const id = req.params.id;
         const udpateUser = req.body;
+        const salt = bcrypt.genSaltSync(15);
+        const hashPassword = bcrypt.hashSync(udpateUser.password,salt);
+        udpateUser.password = hashPassword;
         const options = { new: true };
 
         await userModel.findByIdAndUpdate(id, udpateUser, options);
@@ -106,11 +109,19 @@ exports.updateUserById = async (req, result) => {
 exports.deleteUserById = async (req, result) => {
     try {
         const id = req.params.id;
-        await userModel.findByIdAndDelete(id);
+        const data = await userModel.deleteOne({_id: id});
+        if(data.deletedCount === 0){
+            result.status(404).send({
+                message:"L'utilisateur avec l'ID : " + req.params.id + " n'existe pas.",
+                code:404
+            });
+            console.log("L'utilisateur avec l'ID : " + req.params.id + " n'existe pas.");
+            return;
+        }
         result.status(200).send({
-            message: "L'utilisateur a avec l'ID : " + req.params.id + " a bien été supprimer."
+            message: "L'utilisateur avec l'ID : " + req.params.id + " a bien été supprimer."
         });
-        console.log("L'utilisateur a avec l'ID : " + req.params.id + " a bien été supprimer.");
+        console.log("L'utilisateur avec l'ID : " + req.params.id + " a bien été supprimer.");
     }
     catch (error) {
         result.status(500).send({
@@ -125,7 +136,6 @@ exports.deleteUserById = async (req, result) => {
 exports.login = async (req, result) => {
     try {
         const data = await userModel.findOne({ username: req.body.username });
-        console.dir(data);
         const passwordIsOk = bcrypt.compareSync(req.body.password, data.password);
         if (passwordIsOk) {
             const userToken = {
@@ -133,7 +143,7 @@ exports.login = async (req, result) => {
                 email: data.email,
                 username: data.username
             };
-            const token = jwt.sign({ user }, process.env.SECRET_KEY, {
+            const token = jwt.sign({ userToken }, process.env.SECRET_KEY, {
                 expiresIn: "24h"
             });
             result.cookie("jwt", token);
