@@ -26,10 +26,10 @@ exports.createUser = (req, result) => {
             password: hashPassword
         });
 
-        const dataToSave = userData.save();
+        userData.save();
         result.status(200).send({
             message: "L'utilisateur " + req.body.username + " a bien été créer.",
-            data: dataToSave
+            code:200
         });
         console.log("L'utilisateur " + req.body.username + " a bien été créer.");
 
@@ -90,9 +90,10 @@ exports.updateUserById = async (req, result) => {
         udpateUser.password = hashPassword;
         const options = { new: true };
 
-        await userModel.findByIdAndUpdate(id, udpateUser, options);
+        await userModel.updateOne({_id:req.params.id},udpateUser,options);
         result.status(200).send({
-            message: "L'utilisateur a bien été modifier."
+            message: "L'utilisateur a bien été modifier.",
+            code:200
         });
         console.log("L'utilisateur a bien été modifier.");
     }
@@ -119,7 +120,8 @@ exports.deleteUserById = async (req, result) => {
             return;
         }
         result.status(200).send({
-            message: "L'utilisateur avec l'ID : " + req.params.id + " a bien été supprimer."
+            message: "L'utilisateur avec l'ID : " + req.params.id + " a bien été supprimer.",
+            code:200
         });
         console.log("L'utilisateur avec l'ID : " + req.params.id + " a bien été supprimer.");
     }
@@ -149,7 +151,8 @@ exports.login = async (req, result) => {
             result.cookie("jwt", token);
             result.status(200).send({
                 user_token: token,
-                message: "La connexion de l'utilisateur est un succès."
+                message: "La connexion de l'utilisateur est un succès.",
+                code:200
             });
             console.log("Le connexion de l'utilisateur est un succès.");
         }
@@ -176,13 +179,15 @@ exports.logout = async (req, result) => {
     try{
         result.clearCookie("jwt");
         result.status(200).send({
-            message:"La déconnexion de l'utilisateur est un succès."
+            message:"La déconnexion de l'utilisateur est un succès.",
+            code:200
         });
         console.log("La déconnexion de l'utilisateur est un succès.");
     }
     catch(error){
         result.status(500).send({
-            message:"Une erreur est survenue lors de la déconnexion de l'utilisateur."
+            message:"Une erreur est survenue lors de la déconnexion de l'utilisateur.",
+            code:500
         });
     }
 };
