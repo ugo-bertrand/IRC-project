@@ -13,6 +13,11 @@ const dataSchema = new mongoose.Schema({
         required:true,
         type: mongoose.Schema.Types.ObjectId, 
         ref:'User'
+    },
+    channel_id:{
+        required:true,
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'Channel'
     }
 });
 

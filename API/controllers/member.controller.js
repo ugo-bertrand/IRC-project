@@ -42,6 +42,7 @@ exports.findAllMember = async (req,result) => {
             code:500
         });
         console.log("Une erreur est survenue lors de l'envoie des données des membres.");
+        console.log(error);
     }
 }
 
@@ -58,6 +59,7 @@ exports.findMemberById = async (req,result) => {
             code:500
         });
         console.log("Une erreur est survenue lors de l'envoie des données du membre.");
+        console.log(error);
     }
 }
 
@@ -73,6 +75,7 @@ exports.findMembersOfChannel = async (req,result) =>{
             message:"Une erreur est survenue lors de l'envoie des données."
         });
         console.log("Une erreur est survenue lors de l'envoie des données.");
+        console.log(error);
     }
 }
 
@@ -89,6 +92,7 @@ exports.findChannelOfMember = async (req,result) => {
             code:500
         });
         console.log("Une erreur est survenue lors de l'envoie des données.");
+        console.log(error);
     }
 }
 
@@ -128,6 +132,7 @@ exports.updateMemberById = async (req,result) => {
             code:500
         });
         console.log("Une erreur est survenue lors de la modification du membre.");
+        console.log(error);
     }
 }
 
@@ -155,5 +160,6 @@ exports.deleteMemberById = async (req,result) => {
             code:500
         });
         console.log("Une erreur est survenue lors de la suppression du membre.");
+        console.log(error);
     }
 }
