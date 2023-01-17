@@ -53,7 +53,7 @@ exports.findAllMessageChannel = async (req, result) => {
 exports.findMessageChannelById = async (req, result) => {
     try {
         const id = req.params.id;
-        const data = await messageChannelModel.findOne({ _id: id });
+        const data = await messageChannelModel.findById(id);
         result.status(200).send(data);
         console.log("Les données ont bien été envoyer.");
     }

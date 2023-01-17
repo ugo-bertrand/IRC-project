@@ -12,7 +12,7 @@ const dataSchema = new mongoose.Schema({
     user_id:{
         required:true,
         type: mongoose.Schema.Types.ObjectId, 
-        ref:'User'
+        ref:'Member'
     },
     channel_id:{
         required:true,

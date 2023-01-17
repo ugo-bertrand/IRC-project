@@ -76,7 +76,12 @@ exports.updateMessagePrivateById = async (req, result) => {
     }
     try{
         const id = req.params.id;
-        const data = await messagePrivateModel.updateOne({_id:id});
+        const updateMessage = {
+            ...req.body,
+            date: new Date()
+        }
+        const options = {new:true};
+        const data = await messagePrivateModel.updateOne({_id:id},updateMessage,options);
         if(data.matchedCount === 0 ){
             result.status(404).send({
                 message:"Le message avec l'ID : " + id + " n'existe pas.",
@@ -114,10 +119,10 @@ exports.deleteMessagePrivateById = async (req, result) => {
             return;
         }
         result.status(200).send({
-            message:"Le message avec l'ID : " + id + " a bien été modifier.",
+            message:"Le message avec l'ID : " + id + " a bien été supprimer.",
             code:200
         });
-        console.log("Le message avec l'ID : " + id + " a bien été modifier.");
+        console.log("Le message avec l'ID : " + id + " a bien été supprimer.");
     }
     catch(error){
         result.status(500).send({

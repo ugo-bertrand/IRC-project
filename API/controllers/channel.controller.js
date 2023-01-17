@@ -50,9 +50,7 @@ exports.findAllChannel = async (req,result) => {
 exports.findChannelById = async (req,result) => {
     try{
         const data = await channelModel.findById(req.params.id);
-        result.status(200).send({
-            data: data
-        });
+        result.status(200).send(data);
         console.log("Les données du channel avec l'ID :" + req.params.id + "ont été envoyer.");
     }
     catch(error){

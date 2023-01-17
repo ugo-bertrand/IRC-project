@@ -49,7 +49,7 @@ exports.findAllMember = async (req,result) => {
 exports.findMemberById = async (req,result) => {
     try{
         const id = req.params.id;
-        const data = await memberModel.find(id);
+        const data = await memberModel.findById(id);
         result.status(200).send(data);
         console.log("Les données ont bien été envoyer.");
     }
@@ -106,12 +106,12 @@ exports.updateMemberById = async (req,result) => {
         return;
     }
     try{
-        const id = req.body;
+        const id = req.params.id;
         const updateMember = {
             ...req.body
         };
         const options = {new:true};
-        const data = await memberModel.updateOne({_id:id});
+        const data = await memberModel.updateOne({_id:id},updateMember,options);
         if(data.matchedCount === 0){
             result.status(404).send({
                 message:"Le membre avec l'ID : " + id + " n'existe pas.",

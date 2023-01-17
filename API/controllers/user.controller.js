@@ -25,7 +25,7 @@ exports.createUser = (req, result) => {
             email: req.body.email,
             password: hashPassword
         });
-
+        // mettre une sécurité pour vérifier si l'utilisateur existe déjà pour éviter un crash de l'API
         userData.save();
         result.status(200).send({
             message: "L'utilisateur " + req.body.username + " a bien été créer.",
