@@ -132,10 +132,10 @@ exports.deleteMessageChannelById = async (req, result) => {
             console.log("Le messsage avec l'ID : " + id + " n'existe pas.");
         }
         result.status(200).send({
-            message:"Le message avec l'ID : " + id + " a bien été modifier.",
+            message:"Le message avec l'ID : " + id + " a bien été supprimer.",
             code:200
         });
-        console.log("Le message avec l'ID : " + id + " a bien été modifier.");
+        console.log("Le message avec l'ID : " + id + " a bien été supprimer.");
     }
     catch (error) {
         result.status(500).send({
