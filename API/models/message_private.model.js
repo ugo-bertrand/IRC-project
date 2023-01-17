@@ -10,11 +10,13 @@ const dataSchema = mongoose.Schema({
     },
     user_from_id:{
         required:true,
-        type:mongoose.Schema.Types.ObjectId, ref:'User'
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'User'
     },
     user_to_id:{
         required:true,
-        type:mongoose.Schema.Types.ObjectId, ref:'User'
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'User'
     },
 });
 
