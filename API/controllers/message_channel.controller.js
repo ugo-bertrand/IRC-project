@@ -11,9 +11,9 @@ exports.createMessageChannel = (req, result) => {
     }
     try {
         const messageChannel = {
-            ...req.body
+            ...req.body,
+            date: new Date()
         }
-        messageChannel.date = new Date();
         const data = new messageChannelModel({
             ...messageChannel
         });
