@@ -1,3 +1,0 @@
-# IRC-project
-
-### Node
